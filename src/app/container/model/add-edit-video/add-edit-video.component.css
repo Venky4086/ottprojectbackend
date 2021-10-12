@@ -1,0 +1,43 @@
+.form-control {
+    height: auto;
+  }
+  .tract-list
+  {
+      font-size: 16px;
+      font-weight: 500;
+  }
+  .ddotted-border
+  {
+      border:2px dotted #ccc;
+      background-color: #f5f4f4;
+      border-radius: 5px;
+  }
+  .delete-track
+  {
+      cursor: pointer;
+      font-size: 19px;
+      vertical-align: middle;
+  }
+  .latest-track
+  {
+      background-color: #fbf1f1;
+      padding: 2em 1em;
+      margin-top: 2em;
+  }
+  .track-list-img
+  {
+      width: 50px;
+  }
+  .track-btn
+  {
+      width: 100%;
+  }
+  .upload-options label
+  {
+      display: inline-block;
+  }
+  .upload-options label span
+  {
+      display: block;
+      width: 100%;
+  }

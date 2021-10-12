@@ -1,0 +1,118 @@
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Banner</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+  <style>
+    
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.separator::before, .separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px dotted #000;
+}
+.separator::before {
+    margin-right: .25em;
+}
+.separator::after {
+    margin-left: .25em;
+}
+
+  </style>
+  <ngx-spinner [fullScreen]="false">
+      <p style="font-size: 20px; color: white">Please Wait...</p>
+  </ngx-spinner>
+  
+  <section class="content">
+    <div class="container-fluid">
+      <form (submit)="submitBannerAddForm()" #myform="ngForm" novalidate class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+                <div class='col-12 row'>
+                  <div class="col-6" style="display: grid;">
+                  <label>Main Category</label>
+                  <ng-select2 
+                      [allowClear]="true"
+                      [data]="masterCategoryList"
+                      [placeholder]="'Select Category'"
+                      [options]="categoryOptions"
+                      (valueChanged)="checkSelectBox($event, 'C')">
+                  </ng-select2>
+                  <p *ngIf="myform.submitted && seriesId == '' &&  categoryId == '' && videoId == ''" class="error">Please Select Any 1 Category</p>
+                  </div>
+          
+                  <div class="col-6" style="display: grid;">
+                  <label>Sub Category</label>
+                  <ng-select2 
+                      [allowClear]="true"
+                      [data]="subCategoryList"
+                      [disabled]="categoryId == '' ? true : false"
+                      [placeholder]="'Select Sub Category'"
+                      [options]="subCategoryOptions"
+                      (valueChanged)="checkSelectBox($event, 'S')">
+                  </ng-select2>
+                  <p *ngIf="myform.submitted && subCategoryId == '' && seriesId == '' && videoId == ''" class="error">Please Select Any 1 Sub Category</p>
+                  </div>
+                </div>
+                <div class="separator m-3">OR</div>
+                <div class='col-12 row'>
+                  <div class="col-12" style="display: grid;">
+                    <label>Video</label>
+                    <ng-select2 
+                        [allowClear]="true"
+                        [data]="videoList"
+                        [placeholder]="'Select Video'"
+                        [options]="videoOptions"
+                        (valueChanged)="checkSelectBox($event, 'V')">
+                    </ng-select2>
+                      <p *ngIf="myform.submitted && seriesId == '' && videoId == '' && categoryId == ''" class="error">Please Select Any 1 Video</p>
+                  </div>
+                </div>
+                <div class="separator m-3">OR</div>
+                <div class='col-12 row'>
+                  <div class="col-12" style="display: grid;">
+                    <label>Series/Show</label>
+                    <ng-select2 
+                        [allowClear]="true"
+                        [data]="seriesList"
+                        [placeholder]="'Select Series'"
+                        [options]="seriesOptions"
+                        (valueChanged)="checkSelectBox($event, 'SE')">
+                    </ng-select2>
+                      <p *ngIf="myform.submitted && videoId == '' && seriesId == '' && categoryId == ''" class="error">Please Select Any 1 Series/Show</p>
+                  </div>
+                </div>
+              <div class="col-12 mt-5">
+                <div class="form-group ddotted-border">
+                    <div class="wrapper">
+                        <div class="upload-options">
+                            <label>
+                            <i class="ion ion-ios-camera-outline camera-icon"></i> <span>Click here to upload</span>
+                            <input type="file" accept="image/*" #takeInput (change)="onImagePicked($event)" placeholder="Upload Image" /></label>
+                        </div>
+                        <p *ngIf="selectProfileImg == -1 || (selectProfileImg == 0 && myform.submitted)" class="text-center error">
+                            {{ fileMsg != '' ? fileMsg: 'Image is required' }} </p>
+                        <p *ngIf="selectProfileImg" class="success text-center">
+                            {{ selectProfileImgName }} </p>
+                    </div>
+                </div>
+              </div>
+              <div class="col-12 pt-3">
+                <button type="submit" class="btn btn-success pull-right">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+  

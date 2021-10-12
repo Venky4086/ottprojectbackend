@@ -1,0 +1,58 @@
+<div class=" login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <a [routerLink]="['/dashboard']"><b>OTT</b></a>
+  </div>
+  <!-- /.login-logo -->
+  <ngx-spinner [fullScreen]="false">
+      <p style="font-size: 20px; color: white">Checking Details...</p>
+  </ngx-spinner>
+
+  <div *ngIf="loginData.message" class="alert alert-danger text-capitalize text-center">
+    <span class='text-center'> {{ loginData.message }}</span>
+  </div>
+
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Sign in to start your session</p>
+
+      <form method="POST" action="#" class="needs-validation" novalidate="">
+        <div class="input-group mb-3">
+          <input id="emailOrUsername" type="text" [(ngModel)]="loginData.emailOrUsername" [ngModelOptions]="{standalone: true}" class="form-control" name="emailOrUsername" tabindex="1" placeholder="Email" required autofocus>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input id="password" type="password" placeholder="Password" class="form-control" name="password" [(ngModel)]="loginData.password" [ngModelOptions]="{standalone: true}" tabindex="2" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" id="remember">
+              <label for="remember">
+                Remember Me
+              </label>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button (click)="submitLogin()" type="submit" class="btn btn-primary btn-block">Sign In</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+</div>
+<!-- /.login-box -->
+</div>

@@ -1,0 +1,105 @@
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Plan</h1>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  
+  <ngx-spinner [fullScreen]="false">
+    <p style="font-size: 20px; color: white">Loading...</p>
+  </ngx-spinner>
+
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div *ngIf="totalRecords > 0" class="card-body table-responsive p-0">
+              <table class="table table-hover text-nowrap">
+                <thead>
+                  <tr>
+                    <th width="5%">So. No.</th>
+                    <th width="25%">Name</th>
+                    <th width="15%">Price</th>
+                    <th width="15%">Period</th>
+                    <th width="15%">One Month Price</th>
+                    <th width="10%">Action</th>
+                  </tr>
+                </thead>
+                <tbody >
+                  <tr *ngFor="let plan of planDetails | paginate: { itemsPerPage: count, currentPage: pageNo, totalItems: totalRecords} let i = index">
+                    <td>{{ (pageNo - 1) * count + i + 1 }}</td>
+                    <td>{{ plan.name }}</td>
+                    <td>{{ plan.price }}</td>
+                    <td>{{ plan.month }}</td>
+                    <td>{{ plan.one_month_price }}</td>
+                    <td>
+                        <a class="btn bg-yellow btn-action ml-2" (click)="openEditModal(content, plan._id)" ><i class="fa fa-edit"></i></a>
+                        <a *ngIf="plan.active == true" class="btn btn-danger btn-action ml-2" (click)="activeInActive(plan._id, 'D')" title="Delete">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                        <a *ngIf="plan.active == false" class="btn btn-success btn-action ml-2" (click)="activeInActive(plan._id, 'A')" title="Activate">
+                            <i class="fa fa-check-circle"></i>
+                        </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <pagination-controls class="float-right" (pageChange)="getPageData(pageNo = $event)"></pagination-controls>
+            </div>
+            <div *ngIf="totalRecords == 0" class="card-body">
+                <div class="alert alert-danger text-center">
+                No plan
+                </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+    </div>
+    <ng-template #content let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Update Plan</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="planData" id="edit-form" class="row" (submit)="submitEditPlanForm()"  #myform="ngForm" novalidate>
+            <div class="col-6">
+              <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Plan Name" formControlName="name">
+                  <p *ngIf="planData.get('name').hasError('required') && myform.submitted" class="error">Name is required</p>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <input type="text" class="form-control number" placeholder="How Many Months" formControlName="month">
+                <p *ngIf="planData.get('month').hasError('required') && myform.submitted" class="error">Month is required</p>
+            </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <input type="text" class="form-control amount_field" placeholder="Final Price" formControlName="price">
+                <p *ngIf="planData.get('price').hasError('required') && myform.submitted" class="error">Price is required</p>
+            </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <input type="text" class="form-control amount_field" placeholder="One Month Price" formControlName="one_month_price">
+                <p *ngIf="planData.get('one_month_price').hasError('required') && myform.submitted" class="error">One Month Price is required</p>
+            </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit"  form="edit-form" class="btn btn-primary">Save</button>
+        </div>
+      </ng-template>
+  </section>
+
+  

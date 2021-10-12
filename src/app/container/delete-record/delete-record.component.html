@@ -1,0 +1,16 @@
+<ngx-spinner
+    [fullScreen]="false">
+</ngx-spinner>
+
+<div class="modal-header">
+    <h4 class="modal-title">Are you sure?</h4>	
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">&times;</button>
+</div>
+<div class="modal-body">
+    <p *ngIf="msg == ''">Do you really want to Delete these records?</p>
+    <p *ngIf="msg != ''">{{ msg }}</p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-info" (click)="modal.dismiss('Cross click')">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="goAHead()">Delete</button>
+</div>

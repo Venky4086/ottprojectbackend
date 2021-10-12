@@ -1,0 +1,132 @@
+<ngx-spinner [fullScreen]="false">
+</ngx-spinner>
+
+<div class="modal-header">
+  <h4 *ngIf="openFor != 'edit'" class="modal-title">Add New Video</h4>
+  <h4 *ngIf="openFor == 'edit'" class="modal-title">Edit Video</h4>
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">&times;</button>
+</div>
+<form (submit)="openFor != 'edit' ? submitNewVideo() : submitEditTrack()"
+  #myform="ngForm" novalidate>
+  <div class="modal-body add-track-popup">
+    <div class="row">
+        <div class="col-12" style="display: grid;">
+            <label>Language</label>
+            <ng-select2 
+            [allowClear]="true"
+            [data]="languageList"
+            [(ngModel)]="langValue"
+            [ngModelOptions]="{standalone: true}"
+            [placeholder]="'Select Language'"
+            [options]="languageOptions"
+            (valueChanged)="checkSelectBox($event)">
+            </ng-select2>
+        </div>
+        <p *ngIf="selectLanguage == -1 && myform.submitted" class="error ml-2">Please Select the language</p>
+    </div>
+    <div class="row mt-3">
+      <div class="col-md-3 text-center">
+        <label>Poster</label>
+        <div class="form-group ddotted-border">
+          <div class="wrapper">
+            <div class="upload-options">
+              <label>
+                <i class="ion ion-ios-camera-outline camera-icon"></i> <span>Click here to
+                  upload</span>
+                <input type="file" (change)="onPosterPicked($event)" placeholder="Upload Image"
+                accept="image/*" />
+              </label>
+            </div>
+          </div>
+          <p *ngIf="selectPoster == -1 || (selectPoster == 0 && myform.submitted && selectPosterName=='')"
+          class="error">
+            {{ fileMsg != '' ? fileMsg: 'Poster is required' }} </p>
+            <p *ngIf="selectPoster == 1" class="success">
+            {{ selectPosterName }}
+            </p>
+            <p *ngIf="selectPoster == 2" class="success">
+              {{ selectPosterName.split('/').pop() }}
+            </p>
+        </div>
+        <progress-bar *ngIf="posterProgress > 0" [progress]="posterProgress" [color]="'#488aff'"> </progress-bar>
+      </div>
+      <div class="col-md-3 text-center">
+        <label>Thumbnail</label>
+        <div class="form-group ddotted-border">
+          <div class="wrapper">
+            <div class="upload-options">
+              <label>
+                <i class="ion ion-ios-camera-outline camera-icon"></i> <span>click here to
+                  upload</span>
+                <input type="file" (change)="onThumbnailPicked($event)" placeholder="Upload Image"
+                accept="image/*" />
+              </label>
+            </div>
+          </div>
+          <p *ngIf="selectThumbnail == -1 || (selectThumbnail == 0 && myform.submitted && selectThumbnailName=='')"
+          class="error">
+            {{ fileMsg != '' ? fileMsg: 'Thumbnail is required' }} </p>
+            <p *ngIf="selectThumbnail == 1" class="success">
+            {{ selectThumbnailName }}
+            </p>
+            <p *ngIf="selectThumbnail == 2" class="success">
+            {{ selectThumbnailName.split('/').pop() }}
+            </p>
+        </div>
+        <progress-bar *ngIf="thumbnailProgress > 0" [progress]="thumbnailProgress" [color]="'#488aff'"> </progress-bar>
+      </div>
+      <div class="col-md-3 text-center">
+        <label>Trailer (Optional)</label>
+        <div class="form-group ddotted-border">
+          <div class="wrapper">
+            <div class="upload-options">
+              <label>
+                <i class="ion ion-ios-videocam-outline camera-icon"></i> <span>Click here to
+                  upload</span>
+                <input type="file" (change)="onTrailerPicked($event)" placeholder="Upload Image"
+                    accept="video/*" />
+              </label>
+            </div>
+          </div>
+          <p *ngIf="selectTrailer == 1" class="success">
+            {{ selectTrailerName }}
+          </p>
+          <p *ngIf="selectTrailer == 2" class="success">
+            {{ selectTrailerName.split('/').pop() }}
+          </p>
+        </div>
+        <progress-bar *ngIf="trailerProgress > 0" [progress]="trailerProgress" [color]="'#488aff'"> </progress-bar>
+      </div>
+      <div class="col-md-3 text-center">
+        <label>Movie</label>
+        <div class="form-group ddotted-border">
+          <div class="wrapper">
+            <div class="upload-options">
+              <label>
+                <i class="ion ion-ios-videocam-outline camera-icon"></i> <span>click here to
+                  upload</span>
+                <input type="file" (change)="onVideoPicked($event)" placeholder="Upload Image"
+                accept="video/*" />
+              </label>
+            </div>
+          </div>
+          <p *ngIf="selectVideo == -1 || (selectVideo == 0 && myform.submitted && selectVideoName=='')"
+            class="error">
+            {{ fileMsg != '' ? fileMsg: 'Video is required' }} </p>
+          <p *ngIf="selectVideo == 1" class="success">
+            {{ selectVideoName }}
+          </p>
+          <p *ngIf="selectVideo == 2" class="success">
+            {{ selectVideoName.split('/').pop() }}
+          </p>
+        </div>
+        <progress-bar *ngIf="videoProgress > 0" [progress]="videoProgress" [color]="'#488aff'"> </progress-bar>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-warning">Submit</button>
+  </div>
+</form>

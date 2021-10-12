@@ -1,0 +1,84 @@
+.pull-right{
+    float: right;
+}
+
+.pull-left{
+    float: left;
+}
+
+
+
+.ddotted-border {
+    border: 2px dotted #ccc;
+    background-color: #f5f4f4;
+    border-radius: 5px;
+}
+
+.upload-options
+{
+    margin-top: 14px;
+}
+
+.upload-options{position:relative;cursor:pointer;overflow:hidden;text-align:center;-webkit-transition:background-color ease-in-out 150ms;transition:background-color ease-in-out 150ms}
+.upload-options input{width:.1px;height:.1px;opacity:0;overflow:hidden;position:absolute;z-index:-1}
+.upload-options label{display:-webkit-box;display:-ms-flexbox;display:grid;-webkit-box-align:center;-ms-flex-align:center;align-items:center;width:100%;height:100%;font-weight:400;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;overflow:hidden}
+.upload-options label::after{content:'';font-family:'Material Icons';position:absolute;font-size:2.5rem;color:#e6e6e6;top:calc(50% - 2.5rem);left:calc(50% - 1.25rem);z-index:0}
+.upload-options label span{display:inline-block;width:100%;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;vertical-align:middle;text-align:center}
+.upload-options label span:hover i.material-icons{color:lightgray}
+
+.camera-icon{color:#313131;font-size:3em}
+i.material-icons{-webkit-transition:color 100ms ease-in-out;transition:color 100ms ease-in-out;font-size:2.25em;line-height:55px;color:#fff;display:block}
+.drop{display:block;position:absolute;background:rgba(95,158,160,0.2);border-radius:100%;-webkit-transform:scale(0);transform:scale(0)}
+
+.success {
+    color: green;
+}
+
+.error{
+    color:red;
+}
+
+.ngx-pagination{
+    margin: 15px 25px;
+}
+.select2-selection__arrow{
+    height:40px !important;
+}
+.select2-selection{
+    height:40px !important;
+}
+.select2-selection__choice{
+    color:black !important;
+}
+.add-artist:focus, .add-artist:hover
+{
+	border: 2px solid #000000 !important;
+}
+
+.add-artist{border:2px solid #000;padding:8px 10px;width:70%;border-radius:10px; width: 165px;}
+.time{font-size:15px;font-weight:400; color: #515151;}
+.add-artist:hover{border-color:#000!important}
+.add-artist i{font-size:24px;margin-right:10px;vertical-align:middle}
+.latest-track
+{
+	background-color: #fbf1f1;
+    padding: 2em 1em;
+    margin-top: 2em; 
+}
+.track-list-img
+{
+	width: 50px;
+}
+.track-btn
+{
+	width: 100%;
+}
+.upload-options label
+{
+	display: inline-block;
+}
+.upload-options label span
+{
+	display: block;
+	width: 100%;
+}

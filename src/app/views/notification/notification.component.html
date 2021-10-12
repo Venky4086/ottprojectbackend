@@ -1,0 +1,57 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Notification</h1>
+      </div>
+    </div>
+  </div>
+</section>
+  
+<ngx-spinner [fullScreen]="false">
+    <p style="font-size: 20px; color: white">Please Wait...</p>
+</ngx-spinner>
+
+<section class="content">
+  <div class="container-fluid">
+    <form [formGroup]="notificationData" (submit)="submitNotification()" #myform="ngForm" novalidate class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="form-group">
+                <div class="col-12">
+                    <label>Text</label>
+                    <textarea type="text" class="form-control" placeholder="Notification text" formControlName="text"></textarea>
+                    <p *ngIf="notificationData.get('text').hasError('required') && myform.submitted" class="error">Text is
+                      required</p>
+                </div>
+            </div>
+            <div class="col-md-3 align-self-center"><label>Photo</label></div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group ddotted-border">
+                        <div class="wrapper">
+                            <div class="upload-options">
+                                <label>
+                                <i class="ion ion-ios-camera-outline camera-icon"></i> <span>Drag and click here to
+                                    upload</span>
+                                <input type="file" (change)="onImagePicked($event)" accept="image/*" placeholder="Upload Image" />
+                                </label>
+                            </div>
+                            <p *ngIf="selectProfileImg == -1" class="text-center error">
+                                {{ fileMsg != '' ? fileMsg: 'Invalid Image' }} </p>
+                            <p *ngIf="selectProfileImg" class="success text-center">
+                              {{ selectProfileImgName }} </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 pt-3">
+              <button type="submit" class="btn btn-success pull-right">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

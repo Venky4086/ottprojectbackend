@@ -1,0 +1,132 @@
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Edit Series/Show</h1>
+        </div>
+        <div class="col-sm-6 content-header">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a [routerLink]="['/video-master/series']">Series/Show</a></li>
+            <li class="breadcrumb-item active">Edit</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  
+  <ngx-spinner [fullScreen]="false">
+    <p style="font-size: 20px; color: white">It takes little time, Please Wait...</p>
+  </ngx-spinner>
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <form [formGroup]="seriesData" (submit)="submitSeriesAddForm()" #myform="ngForm" novalidate class="card-body">
+              <div class="col-12">
+                <label>Name</label>
+                <input class="form-control" type="text" formControlName="name">
+                <p *ngIf="seriesData.get('name').hasError('required') && myform.submitted" class="error">Name is
+                    required</p>
+              </div>
+              <div class="col-12">
+                <label>Description</label>
+                <textarea class="form-control" rows="5" formControlName="description">
+                </textarea>
+                <p *ngIf="seriesData.get('description').hasError('required') && myform.submitted" class="error">Description is required</p>
+              </div>
+              <div class="col-12 row pt-3">
+                <div class="col-2">
+                  <label>Type</label>
+                   <input type="checkbox" id="toggle-button-checkbox"
+                      (change)="setType($event.target.checked)" [checked]="type == 'SE' ? true : false">
+                  <label class="toggle-button-switch"  
+                    for="toggle-button-checkbox"></label>
+                  <div class="toggle-button-text">
+                    <div class="toggle-button-text-on">Series</div>
+                    <div class="toggle-button-text-off">Show</div>
+                  </div>
+                </div>
+                <div class="col-5">
+                  <label>Director</label>
+                  <textarea class="form-control" formControlName="director">
+                  </textarea>
+                  <p *ngIf="seriesData.get('director').hasError('required') && myform.submitted" class="error">Director names is required</p>
+                </div>
+                <div class="col-5">
+                  <label>Starring</label>
+                  <textarea class="form-control" formControlName="starring">
+                  </textarea>
+                  <p *ngIf="seriesData.get('starring').hasError('required') && myform.submitted" class="error">Starring is required</p>
+                </div>
+              
+              </div>
+              <div class="row col-12 mt-5">
+                <div class="col-md-4">
+                    <div class="form-group ddotted-border">
+                        <div class="wrapper">
+                            <div class="upload-options">
+                                <label>
+                                <i class="ion ion-ios-camera-outline camera-icon"></i> <span>Drag and click here to
+                                    upload thumbnail</span>
+                                <input type="file" (change)="onImagePicked($event)" accept="image/*" placeholder="Upload Image" />
+                                </label>
+                            </div>
+                            <p *ngIf="selectProfileImg == -1 || (selectProfileImg == 0 && myform.submitted)" class="text-center error">
+                                {{ fileMsg != '' ? fileMsg: 'Image is required' }} </p>
+                            <p *ngIf="selectProfileImg" class="success text-center">
+                                {{ selectProfileImgName }} </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group ddotted-border">
+                        <div class="wrapper">
+                            <div class="upload-options">
+                                <label>
+                                <i class="ion ion-ios-camera-outline camera-icon"></i> <span>Drag and click here to
+                                    upload cover image</span>
+                                <input type="file" (change)="onCoverImagePicked($event)" accept="image/*" placeholder="Upload Image" />
+                                </label>
+                            </div>
+                            <p *ngIf="selectCoverImg == -1 || (selectCoverImg == 0 && myform.submitted)" class="text-center error">
+                                {{ fileMsg != '' ? fileMsg: 'Image is required' }} </p>
+                            <p *ngIf="selectCoverImg" class="success text-center">
+                                {{ selectCoverImgName }} </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group ddotted-border">
+                      <div class="wrapper">
+                          <div class="upload-options">
+                              <label>
+                              <i class="ion ion-ios-videocam-outline camera-icon"></i> <span>Drag and click here to
+                                  upload</span>
+                              <input type="file" (change)="onTrailerPicked($event)" accept="video/*" placeholder="Upload Image" />
+                              </label>
+                          </div>
+                          <p *ngIf="selectTrailer == -1 || (selectTrailer == 0 && myform.submitted)" class="text-center error">
+                              {{ trailerFileMsg != '' ? trailerFileMsg : 'Video is required' }} </p>
+                          <p *ngIf="selectTrailer" class="success text-center">
+                              {{ selectTrailerName }} </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mt-3">
+                  <div class="custom-control pull-right custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" formControlName="for_home" id="defaultUnchecked">
+                    <label class="custom-control-label" for="defaultUnchecked">Show In Home Page</label>
+                  </div>
+                </div>
+                <div class="col-md-12 mt-3">
+                  <button type="submit" class="btn btn-success pull-right">Update</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

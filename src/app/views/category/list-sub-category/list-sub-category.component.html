@@ -1,0 +1,70 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Sub Category</h1>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<ngx-spinner [fullScreen]="false">
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <button class="btn btn-success" [routerLink]="['/category/sub/create']">Add New</button>
+            </div>
+            <div class="card-tools">
+              <div class="input-group input-group-sm" style="width: 150px;">
+                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.card-header -->
+          <div *ngIf="totalRecords > 0" class="card-body table-responsive p-0">
+            <table class="table table-hover text-nowrap">
+              <thead>
+                <tr>
+                  <th width="5%">So. No.</th>
+                  <th width="35%">Name</th>
+                  <th width="30%">Main Category</th>
+                  <th width="10%">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let subcategory of categoryDetails | paginate: { itemsPerPage: count, currentPage: pageNo, totalItems: totalRecords} let i = index">
+                  <td>{{ (pageNo - 1) * count + i + 1 }}</td>
+                  <td>{{ subcategory.name }}</td>
+                  <td>{{ subcategory.category ? subcategory.category.name : '' }}</td>
+                  <td>
+                      <a class="btn btn-info ml-2" [routerLink]="['/category/sub',subcategory._id,'edit']"><i class="fa fa-edit"></i></a>
+                      <span class="btn btn-danger ml-2" (click)="deleteSubCategory(subcategory._id)"><i class="fa fa-trash"></i></span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <pagination-controls class="float-right" (pageChange)="getPageData(pageNo = $event)"></pagination-controls>
+          </div>
+          <div *ngIf="totalRecords == 0" class="card-body">
+            <div class="alert alert-danger text-center">
+              No sub category
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+</section>

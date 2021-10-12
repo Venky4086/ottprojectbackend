@@ -1,0 +1,147 @@
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Movie Edit</h1>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  
+  <ngx-spinner [fullScreen]="false">
+    <p style="font-size: 20px; color: white">Please Wait...</p>
+  </ngx-spinner>
+
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <form [formGroup]="videoData" (submit)="submitVideoUpdateForm()" #myform="ngForm" novalidate class="card-body">
+              <div class="col-12">
+                <label>Name</label>
+                <input class="form-control" type="text" formControlName="name">
+                <p *ngIf="videoData.get('name').hasError('required') && myform.submitted" class="error">Name is
+                    required</p>
+              </div>
+  
+              <div class="col-12 row pt-3">
+  
+                <div class="col-6">
+                  <label>Director</label>
+                  <textarea class="form-control" formControlName="director">
+                  </textarea>
+                  <p *ngIf="videoData.get('director').hasError('required') && myform.submitted" class="error">Director names is required</p>
+                </div>
+                <div class="col-6">
+                  <label>Starring</label>
+                  <textarea class="form-control" formControlName="starring">
+                  </textarea>
+                  <p *ngIf="videoData.get('starring').hasError('required') && myform.submitted" class="error">Starring is required</p>
+                </div>
+              </div>
+              <div class="col-12">
+                <label>Description</label>
+                <textarea class="form-control" rows="5" formControlName="description">
+                </textarea>
+                <p *ngIf="videoData.get('description').hasError('required') && myform.submitted" class="error">Description is required</p>
+              </div>
+              <div class="col-12 row pt-3">
+                <div class="col-6" style="display: grid;">
+                  <label>Main Category</label>
+                  <ng-select2 
+                    [allowClear]="true"
+                    [(ngModel)]="categoryValues"
+                    [ngModelOptions]="{standalone: true}"
+                    [data]="masterCategoryList"
+                    [placeholder]="'Select Category'"
+                    [options]="categoryOptions"
+                    (valueChanged)="checkSelectBox($event, 'C')">
+                  </ng-select2>
+                  <p *ngIf="myform.submitted && categoryValues.length == 0 " class="error">Please Select Any 1 Category</p>
+                </div>
+        
+                <div class="col-6" style="display: grid;">
+                  <label>Sub Category</label>
+                  <ng-select2 
+                    [allowClear]="true"
+                    [data]="subCategoryList"
+                    [(ngModel)]="subCategoryValues"
+                    [ngModelOptions]="{standalone: true}"
+                    [disabled]="categoryValues.length == 0 ? true : false"
+                    [placeholder]="'Select Sub Category'"
+                    [options]="subCategoryOptions">
+                  </ng-select2>
+                  <p *ngIf="myform.submitted && subCategoryValues.length == 0 " class="error">Please Select Any 1 Sub Category</p>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-success pull-right mt-5">Update Changes</button>
+            </form>
+            <div class="card-body">
+              <div class="row latest-track mt-0">
+                <div class="col-md-9">
+                  <h5>Video</h5>
+                </div>
+                <div class="col-md-3"><span (click)="openVideoModel()"
+                  class="btn btn-default add-artist track-btn"><i class="ion ion-android-add"></i>Add Different Video</span>
+                </div>
+              </div>
+              <div *ngIf="videoDetail.video && videoDetail.video.length > 0">
+                <div class="card-body table-responsive p-0">
+                  <table class="table table-hover text-nowrap">
+                    <thead>
+                      <tr>
+                        <th width="10%">So. No.</th>
+                        <th width="30%">Language</th>
+                        <th width="10%">Poster</th>
+                        <th width="10%">Thumbnail</th>
+                        <th width="20%">Trailer</th>
+                        <th width="20%">Movie</th>
+                        <th width="30%">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngFor="let record of videoDetail.video; let i = index">
+                      <tr>
+                        <td>{{ i+1 }}</td>
+                        <td>{{ record.language.name }}</td>
+                        <td>
+                          <img [style]="record.poster != '' ? 'max-width: 140px;' : 'display:none;'" class="img-responsive" [src]="record.poster">
+                          <span [style]="record.poster != '' ? 'display:none;' : ''">No Poster Added</span>
+                        </td>
+                        <td>
+                          <img style="max-width: 140px;" class="img-responsive" [src]="record.thumbnail">
+                        </td>
+                        <td>
+                            <div *ngIf="record.trailer && record.trailer.length > 0">
+                              <video [style]="record.trailer.length > 0 ? 'max-height: 140px; max-width: 250px;' : 'display:none;'"  controls>
+                                <source [src]="record.trailer[0].url">
+                                </video>
+                              </div>
+                            <div *ngIf="record.trailer && record.trailer.length == 0">
+                              <span>No Trailer Added</span>
+                            </div>
+                        </td>
+                        <td>
+                            <video style="max-height: 140px; max-width: 250px;" controls>
+                              <source [src]="record.main[0].url">
+                            </video>
+                        </td>
+                        <td>
+                            <span class="btn btn-primary ml-2" (click)="openVideoModel('E', record)"><i class="fa fa-edit"></i></span>
+                            <span class="btn btn-danger ml-2" (click)="deleteVideo(record._id)"><i class="fa fa-trash"></i></span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div *ngIf="videoDetail.video.length == 0" class="mt-3 text-center alert alert-danger">
+                No Video Added
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

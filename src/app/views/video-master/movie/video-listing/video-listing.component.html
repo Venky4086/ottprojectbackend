@@ -1,0 +1,107 @@
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Movies</h1>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  
+  <ngx-spinner [fullScreen]="false">
+    <p style="font-size: 20px; color: white">Please Wait...</p>
+  </ngx-spinner>
+
+  <section class="content">
+    <style>
+      .text-length{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* number of lines to show */
+        -webkit-box-orient: vertical;
+        max-width: 300px;
+      }
+    </style>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                  <button class="btn btn-success" [routerLink]="['/video-master/movie/create']">Add New</button>
+                </div>
+                <div class="card-tools">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" (keyup)="search(item.value);" #item  class="form-control float-right" placeholder="Search">
+                    <div class="input-group-append">
+                    <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div *ngIf="totalRecords > 0" class="card-body table-responsive p-0">
+              <table class="table table-hover text-nowrap">
+                <thead>
+                  <tr>
+                    <th width="10%">So. No.</th>
+                    <th width="10%">Name</th>
+                    <th width="10%">Language</th>
+                    <th width="10%">Category</th>
+                    <th width="10%">Sub Category</th>
+                    <th width="20%">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let movie of movieDetails | paginate: { itemsPerPage: count, currentPage: pageNo, totalItems: totalRecords} let i = index">
+                    <td>{{ (pageNo - 1) * count + i + 1 }}</td>
+                    <td>{{ movie.name }}</td>
+                    <td>
+                      <span *ngFor="let v of movie.video; let vi = index">
+                        <span (click)="openVideoDetailModel(v)" style="cursor: pointer;color: blue;"> {{ v.language.name }}</span>
+                        <span *ngIf="(movie.video.length-1) > vi">
+                          ,
+                        </span>                           
+                      </span>
+                    </td>
+                    <td>
+                      <span *ngFor="let cat of movie.category; let ci = index">
+                        {{ cat.id.name }}
+                        <span *ngIf="(movie.category.length-1) > ci">
+                          ,
+                        </span>                           
+                      </span>
+                    </td>
+                    <td>
+                      <div class="text-length">
+                      <span *ngFor="let s_cat of movie.sub_category; let sci = index">
+                        {{ s_cat.id.name }}
+                        <span *ngIf="(movie.sub_category.length - 1) > sci">
+                          ,
+                        </span>                           
+                      </span>
+                      </div>
+                    </td>
+                    <td>
+                        <a class="btn btn-info ml-2" [routerLink]="['/video-master/movie',movie._id,'edit']"><i class="fa fa-edit"></i></a>
+                        <span class="btn btn-danger ml-2" (click)="deleteMovie(movie._id)"><i class="fa fa-trash"></i></span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table> 
+              <pagination-controls class="float-right" (pageChange)="getPageData(pageNo = $event)"></pagination-controls>
+            </div>
+            <div *ngIf="totalRecords == 0" class="card-body">
+                <div class="alert alert-danger text-center">
+                    No Movie Added
+                </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+    </div>
+  </section>
+  

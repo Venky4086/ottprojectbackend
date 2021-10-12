@@ -1,0 +1,56 @@
+<div class="modal-header">
+  <h4 class="modal-title">Video Information {{ video_detail.language.name }}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">&times;</button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12 row">
+            <div class="col-md-6">
+                <p class="alert alert-info">Thumbnail</p> 
+                <a *ngIf="video_detail.thumbnail != ''" href="{{ video_detail.thumbnail }}" style="text-align: center;display: block;"><img style="max-width: 150px; max-height: 150px;" [src]="video_detail.thumbnail">
+                </a>
+                <div *ngIf="video_detail.thumbnail =='' " class="text-center">
+                    No Thumbnail
+                </div>
+            </div>
+            <div class="col-md-6">
+                <p class="alert alert-info">Poster</p> 
+                <a *ngIf="video_detail.poster != ''" href="{{ video_detail.poster }}" style="text-align: center;display: block;"><img style="max-width: 150px; max-height: 150px;" [src]="video_detail.poster">
+                </a>
+                <div *ngIf="video_detail.poster =='' " class="text-center">
+                    No Poster
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 mt-3">
+            <p class="alert alert-info">Trailer</p>
+            <div *ngIf="video_detail.trailer.length > 0" class="row mx-1">
+                <div *ngFor="let trailer of video_detail.trailer" class="col-md-2">
+                    <p> {{ trailer.type }} </p>
+                    <a href="{{ trailer.url }}">
+                        <video style="max-height: 100px; max-width: 120px;" controls>
+                            <source [src]="trailer.url">
+                        </video>
+                    </a>
+                </div>
+            </div>
+            <div *ngIf="video_detail.trailer.length == 0" class="text-center">
+                No Trailer
+            </div>
+        </div>
+        <div class="col-md-12 mt-3">
+            <p class="alert alert-info">Movie</p>
+            <div class="row mx-1">
+                <div *ngFor="let main of video_detail.main" class="col-md-2">
+                    <p> {{ main.type }} </p>
+                    <a href="{{ main.url }}">
+                        <video style="max-height: 100px; max-width: 120px;" controls>
+                            <source [src]="main.url">
+                        </video>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

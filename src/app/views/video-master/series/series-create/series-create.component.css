@@ -1,0 +1,45 @@
+
+  input[type="checkbox"] {
+    display: none; 
+  }
+
+  .toggle-button-switch {
+    position: absolute;
+    top: 34px;
+    left: 10px;
+    width: 82px;
+    height: 46px;
+    background-color: #fff;
+    cursor: pointer;
+    border-radius: 25px;
+    z-index: 100;
+    transition: left .3s;
+  }
+
+  .toggle-button-text {
+    overflow: hidden;
+    background-color: #fc3164;
+    border-radius: 25px;
+    box-shadow: 2px 2px 5px 0 rgba(50, 50, 50, 0.75);
+    transition: background-color 0.3s;
+  }
+
+  .toggle-button-text-on,
+  .toggle-button-text-off {
+    float: left;
+    width: 50%;
+    height: 100%;
+    line-height: 50px;
+    font-family: Lato, sans-serif;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+  }
+
+  input[type="checkbox"]:checked ~ .toggle-button-switch {
+    left: 108px;
+  }
+
+  input[type="checkbox"]:checked ~ .toggle-button-text {
+    background-color: #3dbf87;
+  }

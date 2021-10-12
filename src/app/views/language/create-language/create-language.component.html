@@ -1,0 +1,35 @@
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Add Language</h1>
+      </div>
+      <div class="col-sm-6">
+         <a [routerLink]="['/language']" class="pull-right">
+              <i class="fa fa-arrow-left"></i>
+              <span> back to language list</span>
+          </a>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+  <div class="container-fluid">
+    <form [formGroup]="languageData" (submit)="submitLanguageCreateForm()"  #myform="ngForm" novalidate class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="col-12">
+              <label>Name</label>
+              <input type="text" class="form-control" placeholder="English, Hindi, Tamil" formControlName="name">
+              <p *ngIf="languageData.get('name').hasError('required') && myform.submitted" class="error">Name is required</p>
+            </div>
+            <div class="col-12 pt-3">
+              <button type="submit" class="btn btn-success pull-right">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

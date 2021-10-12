@@ -1,0 +1,56 @@
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>User Support list</h1>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  
+  <ngx-spinner [fullScreen]="false">
+    <p style="font-size: 20px; color: white">Loading...</p>
+  </ngx-spinner>
+
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div *ngIf="totalRecords > 0" class="card-body table-responsive p-0">
+              <table class="table table-hover text-nowrap">
+                <thead>
+                  <tr>
+                    <th width="5%">So. No.</th>
+                    <th width="20%">Name</th>
+                    <th width="25%">Phone Number </th>
+                    <th width="25%">Email</th>
+                    <th width="25%">Message</th>
+                  </tr>
+                </thead>
+                <tbody >
+                  <tr *ngFor="let support of supportDetails | paginate: { itemsPerPage: count, currentPage: pageNo, totalItems: totalRecords} let i = index">
+                    <td>{{ (pageNo - 1) * count + i + 1 }}</td>
+                    <td>{{ support.name }}</td>
+                    <td>{{ support.phone_number }}</td>
+                    <td>{{ support.email }}</td>
+                    <td>{{ support.message }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <pagination-controls class="float-right" (pageChange)="getPageData(pageNo = $event)"></pagination-controls>
+            </div>
+            <div *ngIf="totalRecords == 0" class="card-body">
+                <div class="alert alert-danger text-center">
+                No support
+                </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  

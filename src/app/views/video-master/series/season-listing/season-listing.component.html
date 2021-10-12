@@ -1,0 +1,79 @@
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Season</h1>
+        </div>
+      <div class="col-sm-6 content-header">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a [routerLink]="['/video-master/series']">Series/Shows</a></li>
+          <li class="breadcrumb-item">Season</li>
+          <li class="breadcrumb-item active">List</li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+  
+  <ngx-spinner [fullScreen]="false">
+    <p style="font-size: 20px; color: white">Please Wait...</p>
+  </ngx-spinner>
+  
+  <section class="content">
+    <style>
+      .text-length{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* number of lines to show */
+        -webkit-box-orient: vertical;
+        max-width: 300px;
+      }
+    </style>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                  <button class="btn btn-success" (click)="addnew()">Add New</button>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div *ngIf="series && series.season && series.season.length > 0" class="card-body table-responsive p-0">
+              <table class="table table-hover text-nowrap">
+                <thead>
+                  <tr>
+                    <th width="40%">Season Number</th>
+                    <th width="40%">Episode</th>
+                    <th width="20%">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let season of series.season ; let i = index">
+                    <td>Season {{ i +1 }}</td>
+                    <td>
+                        <a [routerLink]="['/video-master/series',series._id,'season', season._id, 'episode']">
+                            {{ season.episodes.length }}
+                        </a>
+                    </td>
+                    <td>
+                        <span class="btn btn-danger ml-2" (click)="deleteSeason(season._id)"><i class="fa fa-trash"></i></span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table> 
+            </div>
+            <div *ngIf="!series || !series.season || series.season.length == 0" class="card-body">
+                <div class="alert alert-danger text-center">
+                    No season added
+                </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+    </div>
+  </section>
+  

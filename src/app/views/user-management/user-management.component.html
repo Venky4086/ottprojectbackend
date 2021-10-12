@@ -1,0 +1,74 @@
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>User</h1>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  
+  <ngx-spinner [fullScreen]="false">
+    <p style="font-size: 20px; color: white">Loading...</p>
+  </ngx-spinner>
+
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+                <div class="card-tools">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                  <input type="text" name="table_search" (keyup)="search(item.value);" #item  class="form-control float-right" placeholder="Search">
+                </div>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div *ngIf="totalRecords > 0" class="card-body table-responsive p-0">
+              <table class="table table-hover text-nowrap">
+                <thead>
+                  <tr>
+                    <th width="5%">So. No.</th>
+                    <th width="20%">Login Type</th>
+                    <th width="20%">Phone Number</th>
+                    <th width="20%">Username</th>
+                    <th width="20%">Plan</th>
+                    <th width="10%">Action</th>
+                  </tr>
+                </thead>
+                <tbody >
+                  <tr *ngFor="let user of userDetails | paginate: { itemsPerPage: count, currentPage: pageNo, totalItems: totalRecords} let i = index">
+                    <td>{{ (pageNo - 1) * count + i + 1 }}</td>
+                    <td>{{ user.login_type == 'U' ? 'Normal' : (user.login_type == 'G' ? 'Google' : 'Facebook') }}</td>
+                    <td>{{ user.phone_number }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.subscription ? user.subscription.plan.name : 'No plan is taken' }}</td>
+                    <td>
+                        <span class="btn btn-danger ml-2" (click)="deleteUser(user._id)"><i class="fa fa-trash"></i></span>
+                        <a *ngIf="user.active == true" class="btn btn-danger btn-action ml-2" (click)="activeInActive(user._id, 'D')" title="Delete">
+                          <i class="fa fa-times"></i>
+                        </a>
+                        <a *ngIf="user.active == false" class="btn btn-success btn-action ml-2" (click)="activeInActive(user._id, 'A')" title="Activate">
+                            <i class="fa fa-check-circle"></i>
+                        </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <pagination-controls class="float-right" (pageChange)="getPageData(pageNo = $event)"></pagination-controls>
+            </div>
+            <div *ngIf="totalRecords == 0" class="card-body">
+                <div class="alert alert-danger text-center">
+                No User found
+                </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  

@@ -1,0 +1,166 @@
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+    <div class="row mb-2">
+        <div class="col-sm-6">
+        <h1 class="m-0 text-dark">Dashboard</h1>
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<ngx-spinner [fullScreen]="false">
+    <p style="font-size: 20px; color: white">Please Wait...</p>
+  </ngx-spinner>
+  
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+    <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-12"> 
+                <div class="card"> 
+                    <div class="card-body row"> 
+                        <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h3>{{ total_user }} </h3>
+                                <p>Total User</p>
+                            </div>
+                            <div class="icon">
+                            <i class="ion ion-person-add"></i>
+                            </div>
+                        <a [routerLink]="['/user-management']" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                        </div>
+                        <!-- ./col -->
+                        <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-success">
+                            <div class="inner">
+                                <h3> {{ total_subscribe_user }}</h3>
+                                <p>Total Subscribe user</p>
+                            </div>
+                            <div class="icon">
+                            <i class="ion ion-person-add"></i>
+                            </div>
+                            <a [routerLink]="['/subscribe-user']" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                        </div>
+                        <!-- ./col -->
+                        <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-warning">
+                            <div class="inner">
+                            <h3>{{ total_video }}</h3>
+
+                            <p>Total Videos</p>
+                            </div>
+                            <div class="icon">
+                            <i class="ion ion-videocamera"></i>
+                            </div>
+                            <a [routerLink]="['/video-master/movie']" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                        </div>
+                        <!-- ./col -->
+                        <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-danger">
+                            <div class="inner">
+                            <h3>{{ total_shows }}</h3>
+                            <p>Total Shows</p>
+                            </div>
+                            <div class="icon">
+                            <i class="ion ion-ios-videocam"></i>
+                            </div>
+                            <a [routerLink]="['/video-master/series']" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-danger">
+                            <div class="inner">
+                            <h3>{{ total_series }}</h3>
+                            <p>Total series</p>
+                            </div>
+                            <div class="icon">
+                            <i class="ion ion-ios-videocam"></i>
+                            </div>
+                            <a [routerLink]="['/video-master/series']" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- ./col -->
+            </div>
+            <div class="col-12">
+                <div class="card ">
+                    <div class="card-header">
+                        <h3>Trending list<span style="font-size: 16px;margin-left: 10px;">(Last 30 days)</span></h3>
+                    </div>
+                    <div *ngIf="trending.length > 0" class="card-body table-responsive p-0">
+                    <table class="table table-hover text-nowrap">
+                        <thead>
+                            <tr>
+                                <th width="5%">So. No.</th>
+                                <th width="20%">Type</th>
+                                <th width="20%">Number Of User Watch</th>
+                                <th width="55%">Name</th>
+                            </tr>
+                            </thead>
+                        <tbody>
+                            <tr *ngFor="let t of trending ; let i=index">
+                                <td>{{ i + 1}} </td>
+                                <td>{{ t.type == 'M' ? 'Movie' : (t.type == 'SE' ? 'Series' : 'Show')}} </td>
+                                <td>{{ t.count }} </td>
+                                <td>{{ t.name }} </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    <div *ngIf="trending.length == 0" class="card-body">
+                        <div class="alert alert-danger text-center">
+                            Now Video is Trending
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card ">
+                    <div class="card-header">
+                        <h3>Most Watch list</h3>
+                    </div>
+                    <div *ngIf="most_watching.length > 0" class="card-body table-responsive p-0">
+                    <table class="table table-hover text-nowrap">
+                        <thead>
+                        <tr>
+                            <th width="5%">So. No.</th>
+                            <th width="20%">Type</th>
+                            <th width="20%">Number Of User Watch</th>
+                            <th width="55%">Name</th>
+                        </tr>
+                        </thead>
+                        <tbody >
+                        <tr *ngFor="let m of most_watching ; let i=index">
+                            <td> {{ i + 1}} </td>
+                            <td>{{ m.type == 'M' ? 'Movie' : (m.type == 'SE' ? 'Series' : 'Show')}} </td>
+                            <td>{{ m.count }} </td>
+                            <td>{{ m.name }} </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    <div *ngIf="most_watching.length == 0" class="card-body">
+                        <div class="alert alert-danger text-center">
+                            Empty Most watching
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- /.content -->
